@@ -19,6 +19,9 @@ var generate = function() {
         key = getRandomKey(12);
     }
     
+    document.getElementById("load").hidden = false
+    spinTask = setInterval(rotate, 2)
+
     createNewImage(key)
     checkApiTask = setInterval(function() { checkImageMade(key) }, 500);
 
@@ -48,6 +51,8 @@ async function checkImageMade(key) {
         console.log("CONFIRMED")
         updateImage(key)
         clearInterval(checkApiTask)
+        clearInterval(spinTask)
+        document.getElementById("load").hidden = true
     }
 }
 
@@ -93,4 +98,14 @@ var updateSliderFromBox = function(idSlider, idBox) {
     }
 
     slider.value = box.value
+}
+
+var rotate = function() {
+    let load = document.getElementById("load");
+    let curr = parseInt(load.name) + 5;
+    if (curr >= 360) {curr -= 360};
+    load.style="transform:rotate(" + curr + "deg)";
+    load.name = curr;
+    console.log(curr);
+    console.log(load.name);
 }
