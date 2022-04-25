@@ -13,9 +13,23 @@
         <script src="{{ url_for('static', filename='js/gen.js') }}"></script>
 
     </head>
-    <body>
-        <div class="row align-items-center h-100">
+    <body onload="setupInputs()">
+        <div class="row">
           <div class="col-3" align="center">
+            <label for="g1">Width</label>
+            <div id="g1" class="input-group mb-3">
+              <input type="range" class="form-control" id="widthSlider" oninput="updateBoxFromSlider('widthSlider', 'width')">
+              <input type="number" id="width" name="quantity" style="width: 15%;" onchange="updateSliderFromBox('widthSlider', 'width')">
+              
+            </div>
+
+            <label for="g2">Height</label>
+            <div id="g2" class="input-group mb-3">
+              <input type="range" class="form-control" id="heightSlider", oninput="updateBoxFromSlider('heightSlider', 'height')">
+              <input type="number" id="height" name="quantity" style="width: 15%;" onchange="updateSliderFromBox('heightSlider', 'height')">
+              
+            </div>
+
             <button type="button" class="btn btn-success" onclick="generate()">Generate</button>
           </div>
           <div class="col-9">

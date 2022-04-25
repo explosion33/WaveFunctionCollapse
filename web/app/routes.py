@@ -8,8 +8,6 @@ import sys
 sys.path.insert(0, app.config["WFC"])
 from generate import WFC, compile_iso_tiles
 
-tiles = compile_iso_tiles(app.config["WFC"] + "\\")
-
 updated = {}
 
 @app.route('/', methods=['GET'])
@@ -17,10 +15,11 @@ def home():
     return render_template("main.html")
 
 
-def generateImage(q, key):
+def generateImage(q, key, w=5, h=5):
     print("building image ", str(key) + ".png")
+    tiles = compile_iso_tiles(app.config["WFC"] + "\\")
 
-    gen = WFC(10,10,tiles)
+    gen = WFC(w,h,tiles)
     gen.start()
     img = gen.buildImageIsometric(yOffset=64, xOffset=128, diamond=True)
     img.save("app/static/images/" + str(key) + ".png")
@@ -28,12 +27,15 @@ def generateImage(q, key):
     q.value = 1
 
 
-@app.route('/<key>', methods=["GET"])
+@app.route('/<key>', methods=["POST"])
 def startGenerateTask(key):
+
+    w = int(request.json["width"])
+    h = int(request.json["height"])
 
     updated[str(key)] = Value("i", 0)
     updated[str(key)].value = False
-    p = Process(target=generateImage, args=[updated[str(key)],key])
+    p = Process(target=generateImage, args=[updated[str(key)],key, w, h])
     p.start()
 
     return Response("{}", status=102, mimetype="application/json")

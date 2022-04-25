@@ -25,7 +25,18 @@ var generate = function() {
 }
 
 function createNewImage(key) {
-    fetch("/" + key);
+    let width = document.getElementById("width").value
+    let height = document.getElementById("height").value
+    console.log(width, height)
+    fetch("/" + key,
+    {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"width": width, "height": height})
+      });
     console.log("updating")
 }
 
@@ -43,4 +54,43 @@ async function checkImageMade(key) {
 function updateImage(key) {
     console.log("updating image")
     document.getElementById("image").src = "/static/images/" + key + ".png?" + new Date().getTime()
+}
+
+
+function setupInputs() {
+    document.getElementById("widthSlider").min   = 1
+    document.getElementById("widthSlider").max   = 30
+    document.getElementById("widthSlider").value = 5
+
+    document.getElementById("heightSlider").min   = 1
+    document.getElementById("heightSlider").max   = 30
+    document.getElementById("heightSlider").value = 5
+
+    document.getElementById("width").value = 5
+    document.getElementById("height").value = 5
+
+}
+
+var updateBoxFromSlider = function(idSlider, idBox) {
+    let slider = document.getElementById(idSlider)
+    let box = document.getElementById(idBox)
+
+    box.value = slider.value
+}
+
+var updateSliderFromBox = function(idSlider, idBox) {
+    let slider = document.getElementById(idSlider)
+    let box = document.getElementById(idBox)
+
+    console.log(slider.value + " " + box.value + " " + slider.max + " " + slider.min)
+
+    if (box.value > parseInt(slider.max)) {
+        box.value = slider.max
+    } 
+
+    else if (box.value < parseInt(slider.min)) {
+        box.value = slider.min
+    }
+
+    slider.value = box.value
 }
