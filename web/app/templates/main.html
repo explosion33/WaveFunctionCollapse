@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="HandheldFriendly" content="true">
+        <title>Bootstrap Portfolio Page Template</title>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+        <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/gen.js') }}"></script>
+
+    </head>
+    <body>
+        <div class="row align-items-center h-100">
+          <div class="col-3" align="center">
+            <button type="button" class="btn btn-success" onclick="generate()">Generate</button>
+          </div>
+          <div class="col-9">
+            <div class="container">
+              <img id="image" src="{{ url_for('static', filename='images/example.png') }} " class="img-fluid">
+            </div>
+          </div>
+        </div>
+
+      </body>
+</html>
