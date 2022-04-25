@@ -457,13 +457,13 @@ def compile_iso_tiles():
     t5 = Tile(5,"Isometric tiles/Grass5.png", t5)
 
     t6 = {"North": [1,2,3,4,5,6,8], "South": [1,2,3,4,5,6,8], "East": [1,2,3,4,5,6,8,9], "West": [1,2,3,4,5,6,8,9]}
-    t6 = Tile(6,"Isometric tiles/Water1.png", t6, priority=3, self_priority=5)
+    t6 = Tile(6,"Isometric tiles/Water1.png", t6, priority=1, self_priority=5)
 
     t7 = {"North": [7,8], "South": [7,8], "East": [7,8], "West": [7,8]}
     t7 = Tile(7,"Isometric tiles/Acid1.png", t7, priority=1, self_priority=5)
 
     t8 = {"North": [1,2,3,4,5,6,7,8,9], "South": [1,2,3,4,5,6,7,8,9], "East": [1,2,3,4,5,6,7,8,9], "West": [1,2,3,4,5,6,7,8,9]}
-    t8 = Tile(8,"Isometric tiles/Block 1.png", t8, self_priority=3, priority=3)
+    t8 = Tile(8,"Isometric tiles/Block 1.png", t8, self_priority=1, priority=3)
 
     t9 = {"North": [9,1,2,3,4,5,8], "South": [9,1,2,3,4,5,8], "East": [6,], "West": [6,]}
     t9 = Tile(9,"Isometric tiles/bl.png", t9, priority=1, self_priority=10)
@@ -477,7 +477,7 @@ if "__main__" in __name__:
     tiles = compile_iso_tiles()
     
 
-    gen = WFC(8,8,tiles)
+    gen = WFC(5,5,tiles)
     gen.start()
     img = gen.buildImageIsometric(yOffset=64, xOffset=128, diamond=True)
     img.save("gen.png")
