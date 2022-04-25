@@ -1,7 +1,7 @@
 from PIL import Image
-from random import choices, randint
+from random import randint
 
-from matplotlib.style import available
+import time
 
 # helper class, really just stores data
 class Tile():
@@ -275,7 +275,7 @@ class WFC():
                     return False
         return True
 
-    def start(this, repeat=True, findValid=False):
+    def start(this, repeat=True, findValid=False, verbose=False):
         """
         start()   | starts the WaveFunctionCollapse\n
         repeat    | (bool) whether or not to repeat until fully collapsed\n
@@ -288,11 +288,30 @@ class WFC():
             return
 
         iter = 0
+        a = time.time()
+        l = []
         while not this._isCollapsed():
             x,y = this._collapsePoint()
             this._updatePoints(x,y)
+
+            t = ""
+            if len(l) < 5:
+                l.append(time.time()-a)
+                a = time.time()
+            else:
+                if len(l) == 5:
+                    tot = 0
+                    for val in l:
+                        tot += val
+                    tot /= len(l)
+                    l.append(tot * (this.width*this.height-iter)/2)
+                
+                t += str(int(l[-1])) + "s"
+                l[-1] -= time.time() - a
+                a = time.time()
+
             iter += 1
-            print(iter, "/", this.width*this.height, "(max)")
+            print(iter, "/", this.width*this.height, "(max)", t)
         
         if findValid and not this._isValid():
             this.__init__(this.width, this.height, this.tiles)
@@ -441,35 +460,42 @@ def compile_2D_tiles():
 
 def compile_iso_tiles():
     # grass 1, 2, 3, 4, 5
-    t1 = {"North": [1,2,3,4,5,6,8,9], "South": [1,2,3,4,5,6,8,9], "East": [1,2,3,4,5,6,8,9], "West": [1,2,3,4,5,6,8,9]}
-    t1 = Tile(1,"Isometric tiles/Grass1.png", t1, priority=3)
+    t1 = {"North": [1,2,3,5,6,8,9,10], "South": [1,2,3,5,6,8,9,10], "East": [1,2,3,5,6,8,9,10], "West": [1,2,3,5,6,8,9,10]}
+    t1 = Tile(1,"Isometric tiles/Grass1.png", t1, priority=3, self_priority=6)
 
-    t2 = {"North": [1,2,3,4,5,6,8,9], "South": [1,2,3,4,5,6,8,9], "East": [1,2,3,4,5,6,8,9], "West": [1,2,3,4,5,6,8,9]}
+    t2 = {"North": [1,2,3,5,6,8,9,10], "South": [1,2,3,5,6,8,9,10], "East": [1,2,3,5,6,8,9,10], "West": [1,2,3,5,6,8,9,10]}
     t2 = Tile(2,"Isometric tiles/Grass2.png", t2)
 
     #t3 = {"North": [1,2,3,4,5,6,8], "South": [1,2,3,4,5,6,8], "East": [1,2,3,4,5,6,8], "West": [1,2,3,4,5,6,8]}
     #t3 = Tile(3,"Isometric tiles/Grass3.png", t3)
 
-    t4 = {"North": [1,2,3,4,5,6,8,9], "South": [1,2,3,4,5,6,8,9], "East": [1,2,3,4,5,6,8,9], "West": [1,2,3,4,5,6,8,9]}
-    t4 = Tile(4,"Isometric tiles/Grass4.png", t4)
+    #t4 = {"North": [1,2,3,4,5,6,8,9], "South": [1,2,3,4,5,6,8,9], "East": [1,2,3,4,5,6,8,9], "West": [1,2,3,4,5,6,8,9]}
+    #t4 = Tile(4,"Isometric tiles/Grass4.png", t4)
 
-    t5 = {"North": [1,2,3,4,5,6,8,9], "South": [1,2,3,4,5,6,8,9], "East": [1,2,3,4,5,6,8,9], "West": [1,2,3,4,5,6,8,9]}
-    t5 = Tile(5,"Isometric tiles/Grass5.png", t5)
+    t4 = {"North": [2,4,6,9,10], "South": [2,4,6,9,10], "East": [2,4,6,9,10], "West": [2,4,6,9,10]}
+    t4 = Tile(4,"Isometric tiles/Tree1.png", t4, self_priority=4)
 
-    t6 = {"North": [1,2,3,4,5,6,8], "South": [1,2,3,4,5,6,8], "East": [1,2,3,4,5,6,8,9], "West": [1,2,3,4,5,6,8,9]}
-    t6 = Tile(6,"Isometric tiles/Water1.png", t6, priority=1, self_priority=5)
+    #t5 = {"North": [1,2,3,4,5,6,8,9], "South": [1,2,3,4,5,6,8,9], "East": [1,2,3,4,5,6,8,9], "West": [1,2,3,4,5,6,8,9]}
+    #t5 = Tile(5,"Isometric tiles/Grass5.png", t5)
+
+    t6 = {"North": [1,2,3,4,5,6,8,10], "South": [1,2,3,4,5,6,8,10], "East": [1,2,3,4,5,6,8,9,10], "West": [1,2,3,4,5,6,8,9,10]}
+    t6 = Tile(6,"Isometric tiles/Water1.png", t6, priority=3, self_priority=6)
 
     t7 = {"North": [7,8], "South": [7,8], "East": [7,8], "West": [7,8]}
-    t7 = Tile(7,"Isometric tiles/Acid1.png", t7, priority=1, self_priority=5)
+    t7 = Tile(7,"Isometric tiles/Acid1.png", t7, priority=1, self_priority=3)
 
-    t8 = {"North": [1,2,3,4,5,6,7,8,9], "South": [1,2,3,4,5,6,7,8,9], "East": [1,2,3,4,5,6,7,8,9], "West": [1,2,3,4,5,6,7,8,9]}
-    t8 = Tile(8,"Isometric tiles/Block 1.png", t8, self_priority=1, priority=3)
+    t8 = {"North": [1,2,3,5,6,7,8,9,10], "South": [1,2,3,5,6,7,8,9,10], "East": [1,2,3,5,6,7,8,9,10], "West": [1,2,3,5,6,7,8,9,10]}
+    t8 = Tile(8,"Isometric tiles/Block 1.png", t8, self_priority=1, priority=2)
 
     t9 = {"North": [9,1,2,3,4,5,8], "South": [9,1,2,3,4,5,8], "East": [6,], "West": [6,]}
-    t9 = Tile(9,"Isometric tiles/bl.png", t9, priority=1, self_priority=10)
+    t9 = Tile(9,"Isometric tiles/bl.png", t9, priority=0, self_priority=10)
+
+    t10 = {"North": [9], "South": [1,2,3,4,5,6,8], "East": [1,2,3,4,5,6,8], "West": [9]}
+    t10 = Tile(10,"Isometric tiles/bj.png", t10, priority=0, self_priority=1)
+ 
 
 
-    return [t1,t2,t4,t5,t6,t7,t8,t9]
+    return [t1,t2,t4,t6,t7,t8,t9,t10]
 
 
 if "__main__" in __name__:
