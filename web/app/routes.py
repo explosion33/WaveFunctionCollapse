@@ -38,7 +38,7 @@ def startGenerateTask(key):
     p = Process(target=generateImage, args=[updated[str(key)],key, w, h])
     p.start()
 
-    return Response("{}", status=102, mimetype="application/json")
+    return jsonify({"status": "success"})
 
 @app.route('/check/<key>')
 def check(key):

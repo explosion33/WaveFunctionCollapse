@@ -30,7 +30,6 @@ var generate = function() {
 function createNewImage(key) {
     let width = document.getElementById("width").value
     let height = document.getElementById("height").value
-    console.log(width, height)
     fetch("/" + key,
     {
         method: 'POST',
@@ -39,8 +38,13 @@ function createNewImage(key) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({"width": width, "height": height})
+      }).then(function(){
+          console.log("updating")
+      }).catch(function(err){
+        console.log(err)
+        console.log("failed --retrying")
+        createNewImage(key)
       });
-    console.log("updating")
 }
 
 async function checkImageMade(key) {
@@ -106,6 +110,4 @@ var rotate = function() {
     if (curr >= 360) {curr -= 360};
     load.style="transform:rotate(" + curr + "deg)";
     load.name = curr;
-    console.log(curr);
-    console.log(load.name);
 }
