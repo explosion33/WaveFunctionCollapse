@@ -15,32 +15,35 @@
     </head>
     <body onload="setupInputs()">
         <div class="row">
-          <div class="col-3" align="center">
-            <label for="g1">Width</label>
-            <div id="g1" class="input-group mb-3">
-              <input type="range" class="form-control" id="widthSlider" oninput="updateBoxFromSlider('widthSlider', 'width')">
-              <input type="number" id="width" name="quantity" style="width: 15%;" onchange="updateSliderFromBox('widthSlider', 'width')">
-              
-            </div>
+          <div class="col-sm-12 col-md-3" align="center">
+            <div class="container">
+              <label for="g1">Width</label>
+              <div id="g1" class="input-group mb-3">
+                <input type="range" class="form-control" id="widthSlider" oninput="updateBoxFromSlider('widthSlider', 'width')">
+                <input type="number" id="width" name="quantity" style="width: 15%;" onchange="updateSliderFromBox('widthSlider', 'width')">
+                
+              </div>
 
-            <label for="g2">Height</label>
-            <div id="g2" class="input-group mb-3">
-              <input type="range" class="form-control" id="heightSlider", oninput="updateBoxFromSlider('heightSlider', 'height')">
-              <input type="number" id="height" name="quantity" style="width: 15%;" onchange="updateSliderFromBox('heightSlider', 'height')">
-              
-            </div>
+              <label for="g2">Height</label>
+              <div id="g2" class="input-group mb-3">
+                <input type="range" class="form-control" id="heightSlider", oninput="updateBoxFromSlider('heightSlider', 'height')">
+                <input type="number" id="height" name="quantity" style="width: 15%;" onchange="updateSliderFromBox('heightSlider', 'height')">
+                
+              </div>
 
-            <button type="button" class="btn btn-success" onclick="generate()">Generate</button>
-            <br>
-            <br>
-            <img hidden id="load" class="img-fluid" src="{{ url_for('static', filename='images/loading.png')}}" width="10%" name="0">
+              <button type="button" class="btn btn-success" onclick="generate()">Generate</button>
+              <br>
+              <br>
+              <img hidden id="load" class="img-fluid" src="{{ url_for('static', filename='images/loading.png')}}" width="10%" name="0">
+            </div>
           </div>
-          <div class="col-9">
+          <div class="col-sm-12 col-md-9">
             <div class="container">
               <img id="image" src="{{ url_for('static', filename='images/example.png') }} " class="img-fluid">
             </div>
           </div>
         </div>
+      
 
       </body>
 </html>
