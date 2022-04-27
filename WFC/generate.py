@@ -16,6 +16,17 @@ class Tile():
         if rules is None:
             this.rules = {"North":[], "South": [], "East": [], "West": []}
 
+        for dir in ["North", "South", "East", "West"]:
+            if dir not in this.rules:
+                this.rules[dir] = []
+
+        if "All" in this.rules:
+            for rule in this.rules["All"]:
+                this.rules["North"].append(rule)
+                this.rules["South"].append(rule)
+                this.rules["East"].append(rule)
+                this.rules["West"].append(rule)
+
 
 # main wave function collapse class
 class WFC():
@@ -94,7 +105,6 @@ class WFC():
                 x = close[0]
                 y = close[1]
 
-
         this.lastCollapsed = (x,y)
 
         # pick random tile out of available options
@@ -121,6 +131,10 @@ class WFC():
                         for i in range(tile.self_priority*tile.priority):
                             choices.append(tile)
         
+
+        if len(choices) == 0:
+            this.grid[y][x] = []
+            return (x,y)
 
         a = randint(0,len(choices)-1)
         this.grid[y][x] = [choices[a]]
@@ -166,7 +180,7 @@ class WFC():
         y | y position of point to update\n
         """
         # if the point has already been collapsed dont bother updating it further
-        if len(this.grid[y][x]) == 1:
+        if len(this.grid[y][x]) <= 1:
             return
 
         # create empty sets
@@ -460,43 +474,51 @@ def compile_2D_tiles():
     return [t3,t5,t6,t7,t11,t12,t15,t16,t17,t19,t20,t25,t26]
 
 def compile_iso_tiles(parent_dir=""):
-    # grass 1, 2, 3, 4, 5
-    t1 = {"North": [1,2,3,5,6,8,9,10], "South": [1,2,3,5,6,8,9,10], "East": [1,2,3,5,6,8,9,10], "West": [1,2,3,5,6,8,9,10]}
-    t1 = Tile(1,parent_dir + "Isometric tiles/Grass1.png", t1, priority=3, self_priority=6)
+    tiles = []
 
-    t2 = {"North": [1,2,3,5,6,8,9,10], "South": [1,2,3,5,6,8,9,10], "East": [1,2,3,5,6,8,9,10], "West": [1,2,3,5,6,8,9,10]}
-    t2 = Tile(2,parent_dir + "Isometric tiles/Grass2.png", t2)
+    t = {"All": [1,2,3,9,10]}
+    t = Tile(1,parent_dir + "Isometric tiles/Grass1.png", t, priority=1, self_priority=1)
+    tiles.append(t)
 
-    #t3 = {"North": [1,2,3,4,5,6,8], "South": [1,2,3,4,5,6,8], "East": [1,2,3,4,5,6,8], "West": [1,2,3,4,5,6,8]}
-    #t3 = Tile(3,"Isometric tiles/Grass3.png", t3)
+    t = {"All": [1,2,3,9,10]}
+    t = Tile(2,parent_dir + "Isometric tiles/Grass2.png", t)
+    tiles.append(t)
 
-    #t4 = {"North": [1,2,3,4,5,6,8,9], "South": [1,2,3,4,5,6,8,9], "East": [1,2,3,4,5,6,8,9], "West": [1,2,3,4,5,6,8,9]}
-    #t4 = Tile(4,"Isometric tiles/Grass4.png", t4)
+    t = {"All": [1,2,3]}
+    t = Tile(3,parent_dir + "Isometric tiles/Tree1.png", t, self_priority=1)
+    tiles.append(t)
 
-    t4 = {"North": [2,4,6,9,10], "South": [2,4,6,9,10], "East": [2,4,6,9,10], "West": [2,4,6,9,10]}
-    t4 = Tile(4,parent_dir + "Isometric tiles/Tree1.png", t4, self_priority=4)
+    t = {"All": [4,9], "East": [7,8], "West": [7,8]}
+    t = Tile(4,parent_dir + "Isometric tiles/Water1.png", t, priority=1, self_priority=1)
+    tiles.append(t)
 
-    #t5 = {"North": [1,2,3,4,5,6,8,9], "South": [1,2,3,4,5,6,8,9], "East": [1,2,3,4,5,6,8,9], "West": [1,2,3,4,5,6,8,9]}
-    #t5 = Tile(5,"Isometric tiles/Grass5.png", t5)
+    #t = {"North": [7,8], "South": [7,8], "East": [7,8], "West": [7,8]}
+    #t = Tile(5,parent_dir + "Isometric tiles/Acid1.png", t, priority=1, self_priority=1)
+    #tiles.append(t)
 
-    t6 = {"North": [1,2,3,4,5,6,8,10], "South": [1,2,3,4,5,6,8,10], "East": [1,2,3,4,5,6,8,9,10], "West": [1,2,3,4,5,6,8,9,10]}
-    t6 = Tile(6,parent_dir + "Isometric tiles/Water1.png", t6, priority=3, self_priority=6)
+    #t = {"All": [5,6,10]}
+    #t = Tile(6,parent_dir + "Isometric tiles/Block 1.png", t, self_priority=1, priority=1)
+    #tiles.append(t)
 
-    t7 = {"North": [7,8], "South": [7,8], "East": [7,8], "West": [7,8]}
-    t7 = Tile(7,parent_dir + "Isometric tiles/Acid1.png", t7, priority=1, self_priority=3)
+    t = {"North": [7,9], "South": [7,9], "East": [4,9], "West": [4,9]}
+    t = Tile(7,parent_dir + "Isometric tiles/bl.png", t, priority=0, self_priority=1)
+    tiles.append(t)
 
-    t8 = {"North": [1,2,3,5,6,7,8,9,10], "South": [1,2,3,5,6,7,8,9,10], "East": [1,2,3,5,6,7,8,9,10], "West": [1,2,3,5,6,7,8,9,10]}
-    t8 = Tile(8,parent_dir + "Isometric tiles/Block 1.png", t8, self_priority=1, priority=2)
+    t = {"North": [7], "South": [4,9], "East": [4,9], "West": [7]}
+    t = Tile(8,parent_dir + "Isometric tiles/bj.png", t, priority=0, self_priority=1)
+    tiles.append(t)
 
-    t9 = {"North": [9,1,2,3,4,5,8], "South": [9,1,2,3,4,5,8], "East": [6,], "West": [6,]}
-    t9 = Tile(9,parent_dir + "Isometric tiles/bl.png", t9, priority=0, self_priority=10)
+    t = {"All": [1,2,4,7,8,9,10]}
+    t = Tile(9,parent_dir + "Isometric tiles/sand.png", t, priority=1, self_priority=1)
+    tiles.append(t)
 
-    t10 = {"North": [9], "South": [1,2,3,4,5,6,8], "East": [1,2,3,4,5,6,8], "West": [9]}
-    t10 = Tile(10,parent_dir + "Isometric tiles/bj.png", t10, priority=0, self_priority=1)
+    #t = {"All": [1,2,6,9,10]}
+    #t = Tile(10,parent_dir + "Isometric tiles/GB.png", t, priority=1, self_priority=1)
+    #tiles.append(t)
  
 
 
-    return [t1,t2,t4,t6,t7,t8,t9,t10]
+    return tiles
 
 
 if "__main__" in __name__:
