@@ -1,6 +1,6 @@
 from ntpath import join
 from posixpath import split
-from flask import  jsonify, render_template, redirect, request, url_for, abort, Response
+from flask import  jsonify, render_template, redirect, request, url_for, abort, Response, send_file
 from multiprocessing import Process, Value
 from app import app
 import sys
@@ -46,6 +46,12 @@ def check(key):
         updated.pop(str(key))
         return jsonify("True")
     return jsonify("False")
+
+
+@app.route("/favicon.ico", methods=["GET"])
+def icon():
+    print("getting icon")
+    return send_file("static/favicon.ico")
 
 
 @app.errorhandler(404)
