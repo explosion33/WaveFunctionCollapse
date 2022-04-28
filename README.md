@@ -10,7 +10,12 @@ Included is a web-ready flask server that uses asyncronous api requests and call
 [Sample Hosted Website](http://wfc.armstronglabs.net)
 
 
-CREDIT
+<br>
+<br>
+
+**CREDIT**
+
+
 
 original artwork can be found by me, this work has either been used directly or modified
 
