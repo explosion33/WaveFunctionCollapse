@@ -7,6 +7,8 @@ A basic random world generator using Wave Function Collapse that combines tiles 
 
 Included is a web-ready flask server that uses asyncronous api requests and callbacks to handle real time image generation
 
+[Sample Hosted Website](http://wfc.armstronglabs.net)
+
 
 [Isometric Tile Set](https://rgsdev.itch.io/free-isometric-dungeon-game-tileset-2d-asset-by-rgsdev?download)
 
