@@ -1,7 +1,7 @@
 # WaveFunctionCollapse
 A Wave Function collapse random world generator build with python and pillow, hosted on a website running flask
 
-![Example Generated World](https://github.com/explosion33/WaveFunctionCollapse/blob/main/example.png)
+![Example Generated World](https://github.com/explosion33/WaveFunctionCollapse/blob/main/web/app/static/images/example.png)
 
 A basic random world generator using Wave Function Collapse that combines tiles based on pre-defined rules, then compiles it into a PNG file
 
