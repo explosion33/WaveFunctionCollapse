@@ -33,10 +33,31 @@
               </div>
 
               <button type="button" class="btn btn-success" onclick="generate()">Generate</button>
-              <br>
-              <br>
-              <img hidden id="load" class="img-fluid" src="{{ url_for('static', filename='images/loading.png')}}" width="10%" name="0">
             </div>
+
+            <br>
+            <br>
+            <br>
+            <button class="btn btn-info" data-toggle="collapse" data-target="#options">Tile Priority</button>
+
+            <div id="options" class="collapse">
+              <div class="container">
+                <br>
+                {% for option in options %}
+                <label for="{{ option.id }}">{{ option.label }}</label>
+                <div id="{{ option.id }}" class="input-group mb-3">
+                  <input type="range" class="form-control" id="{{ option.id }}s" oninput="updateBoxFromSlider('{{ option.id }}s', '{{ option.id }}n')" min="{{ option.min }}" max="{{ option.max }}" value="{{ option.start }}">
+                  <input type="number" id="{{ option.id }}n" name="quantity" style="width: 15%;" onchange="updateSliderFromBox('{{ option.id }}s', '{{ option.id }}n')" value="{{ option.start }}">  
+                </div>
+                {% endfor %}
+  
+              </div>
+            </div>
+
+            <br>
+            <br>
+            <img hidden id="load" class="img-fluid" src="{{ url_for('static', filename='images/loading.png')}}" width="10%" name="0">
+
           </div>
           <div class="col-sm-12 col-md-9">
             <div class="container">

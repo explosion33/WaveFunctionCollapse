@@ -1,4 +1,5 @@
 var key = 0
+var options = ["Grass1", "Grass2", "Tree", "Water", "Sand"]
 
 getRandomAscii = function() {
     let possible = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -30,6 +31,14 @@ var generate = function() {
 function createNewImage(key) {
     let width = document.getElementById("width").value
     let height = document.getElementById("height").value
+
+    let ops = {}
+    for (let i = 0; i<options.length; i++) {
+        k = options[i]
+        v = document.getElementById(k + "n").value
+        ops[k] = parseInt(v)
+    } 
+
     fetch("/" + key,
     {
         method: 'POST',
@@ -37,7 +46,7 @@ function createNewImage(key) {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({"width": width, "height": height})
+        body: JSON.stringify({"width": width, "height": height, "options": ops})
       }).then(function(){
           console.log("updating")
       }).catch(function(err){

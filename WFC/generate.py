@@ -492,30 +492,9 @@ def compile_iso_tiles(parent_dir=""):
     t = Tile(4,parent_dir + "Isometric tiles/Water1.png", t, priority=1, self_priority=1)
     tiles.append(t)
 
-    #t = {"North": [7,8], "South": [7,8], "East": [7,8], "West": [7,8]}
-    #t = Tile(5,parent_dir + "Isometric tiles/Acid1.png", t, priority=1, self_priority=1)
-    #tiles.append(t)
-
-    #t = {"All": [5,6,10]}
-    #t = Tile(6,parent_dir + "Isometric tiles/Block 1.png", t, self_priority=1, priority=1)
-    #tiles.append(t)
-
-    t = {"North": [7,9], "South": [7,9], "East": [4,9], "West": [4,9]}
-    t = Tile(7,parent_dir + "Isometric tiles/bl.png", t, priority=0, self_priority=1)
-    tiles.append(t)
-
-    t = {"North": [7], "South": [4,9], "East": [4,9], "West": [7]}
-    t = Tile(8,parent_dir + "Isometric tiles/bj.png", t, priority=0, self_priority=1)
-    tiles.append(t)
-
     t = {"All": [1,2,4,7,8,9,10]}
     t = Tile(9,parent_dir + "Isometric tiles/sand.png", t, priority=1, self_priority=1)
     tiles.append(t)
-
-    #t = {"All": [1,2,6,9,10]}
-    #t = Tile(10,parent_dir + "Isometric tiles/GB.png", t, priority=1, self_priority=1)
-    #tiles.append(t)
- 
 
 
     return tiles
