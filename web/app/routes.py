@@ -6,6 +6,8 @@ from app import app
 import sys
 
 sys.path.insert(0, app.config["WFC"])
+sys.path.insert(0, "/WFC")
+print(app.config["WFC"], app.config["ROOT"])
 from generate import WFC, Tile
 
 updated = {}
@@ -55,7 +57,7 @@ def home():
 def generateImage(q, key, w=5, h=5, options={}):
     print("BUILD", options)
     print("building image ", str(key) + ".png")
-    tiles = compile_iso_tiles(app.config["WFC"] + "\\", options)
+    tiles = compile_iso_tiles(app.config["WFC"] + "/", options)
     print(tiles[0].priority)
 
     gen = WFC(w,h,tiles)
